@@ -5,10 +5,9 @@
 
     root.require([
 		'backbone',
-		'application',
-		'regionManager'
+		'application'
 	],
-	function ( Backbone, App ) {
+	function (Backbone, App) {
 		App.start();
 	});
 }).call( this );

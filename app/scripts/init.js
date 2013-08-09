@@ -1,21 +1,20 @@
-(function() {
+(function(){
     'use strict';
 
     var root = this;
 
     root.require.config({
 
+        locale: "en_gb",
         baseUrl: "/scripts",
 
         /* starting point for application */
         deps: ['backbone.marionette', 'bootstrap', 'marionette.handlebars', 'main'],
 
-
         shim: {
             handlebars: {
                 exports: 'Handlebars'
             },
-
             backbone: {
                 deps: [
                     'underscore',
@@ -36,7 +35,7 @@
 
             /* alias all marionette libs */
             'backbone.marionette': '../bower_components/backbone.marionette/lib/core/amd/backbone.marionette',
-            'backbone.wreqr': '../bower_components/backbone.wreqr/lib/amd/backbone.wreqr', 
+            'backbone.wreqr': '../bower_components/backbone.wreqr/lib/amd/backbone.wreqr',
             'backbone.babysitter': '../bower_components/backbone.babysitter/lib/amd/backbone.babysitter',
 
             /* alias the bootstrap js lib */
@@ -59,7 +58,8 @@
         },
 
         hbs: {
-            disableI18n: true
+            disableI18n: false,
+            i18nDirectory: "/i18n/"
         }
     });
 }).call( this );

@@ -1,28 +1,44 @@
 (function() {
-	'use strict';
+    'use strict';
 
-	var root = this;
+    var root = this;
 
-	root.define([
-		'backbone',
-		'communicator',
-		'hbs!tmpl/welcome'
-	],
+    root.define([
+        'backbone',
+        'base/baseController',
+        'hbs!tmpl/welcome'
+    ],
 
-	function( Backbone, Communicator, Welcome_tmpl ) {
-		var welcomeTmpl = Welcome_tmpl;
+    function(Backbone, Controller, welcomeTmpl) {
+        var App = new Backbone.Marionette.Application(),
+            indexController = new Controller();
 
-		var App = new Backbone.Marionette.Application();
+        root.App = App;
 
-		/* Add application regions here */
-		App.addRegions({});
+        App.getCurrentRoute = function(){
+            return Backbone.history.fragment;
+        };
 
-		/* Add initializers here */
-		App.addInitializer( function () {
-			document.body.innerHTML = welcomeTmpl({ success: "CONGRATS!" });
-			Communicator.mediator.trigger("APP:START");
-		});
+        var AppLayout = Backbone.Marionette.Layout.extend({
+            el: "#app",
+            template: welcomeTmpl,
 
-		return App;
-	});
+            regions: {
+                header: '#main-nav',
+                content: '#content'
+            }
+        });
+
+        App.addInitializer(function () {
+            App.layout = new AppLayout();
+
+            Backbone.history.start();
+            if (this.getCurrentRoute() === ""){
+                App.vent.trigger("assets:list");
+            }
+            indexController.mediator.trigger("APP:START");
+        });
+
+        return App;
+    });
 }).call( this );
