@@ -5,28 +5,26 @@
 
 	root.define([
 		'backbone',
-		'backbone.marionette'
+		'communicator'
 	],
-	function( Backbone ) {
+	function(Backbone, Communicator) {
 
 		var BaseController = Backbone.Marionette.Controller.extend({
 			initialize: function() {
-				// create a pub sub
+
+				// global events
+				this.communicator = Communicator;
+
+				// local a pub sub
 				this.mediator = new Backbone.Wreqr.EventAggregator();
-
-				//create a req/res
-				this.reqres = new Backbone.Wreqr.RequestResponse();
-
-				// create commands
-				this.command = new Backbone.Wreqr.Commands();
 
 				/* internal region manager */
 				this._regionManager = new Backbone.Marionette.RegionManager();
 
 				/* event API */
-				this.reqres.setHandler("RM:addRegion", this.addRegion, this);
-				this.reqres.setHandler("RM:removeRegion", this.removeRegion, this);
-				this.reqres.setHandler("RM:getRegion", this.getRegion, this);
+				this.mediator.on("RM:addRegion", this.addRegion, this);
+				this.mediator.on("RM:removeRegion", this.removeRegion, this);
+				this.mediator.on("RM:getRegion", this.getRegion, this);
 			},
 
 			/* add region facade */
@@ -45,7 +43,6 @@
 			}
 		});
 
-		console.log('request for base controller');
 		return BaseController;
 
 	});

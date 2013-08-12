@@ -9,7 +9,7 @@
         baseUrl: "/scripts",
 
         /* starting point for application */
-        deps: ['backbone.marionette', 'bootstrap', 'marionette.handlebars', 'main'],
+        deps: ['backbone.marionette', 'bootstrap', 'marionette.handlebars', 'modules/application/main'],
 
         shim: {
             handlebars: {
@@ -54,7 +54,10 @@
             hbs: '../bower_components/require-handlebars-plugin/hbs',
 
             /* marionette and handlebars plugin */
-            'marionette.handlebars': '../bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars'
+            'marionette.handlebars': '../bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars',
+
+            /* modules and components */
+            communicator: 'components/communicator'
         },
 
         hbs: {

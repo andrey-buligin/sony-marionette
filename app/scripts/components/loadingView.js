@@ -7,9 +7,9 @@
         'backbone',
         'backbone.marionette'
     ],
-    function( Backbone ) {
+    function(Backbone) {
 
-        root.App.Views.Loading = Backbone.Marionette.ItemView.extend({
+        root.App.Views.Loading = new Backbone.Marionette.ItemView.extend({
             template: "#loading-view",
 
             serializeData: function() {
@@ -38,9 +38,11 @@
                     top: '30px', // Top position relative to parent in px
                     left: 'auto' // Left position relative to parent in px
                 };
-                $('#spinner').spin(opts);
+                this.$('#spinner').spin(opts);
             }
         });
+
+        return root.App.Views.Loading;
     });
 
 }).call(this);
